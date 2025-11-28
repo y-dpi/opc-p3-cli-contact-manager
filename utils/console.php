@@ -1,8 +1,8 @@
 <?php
 
-// Includes.
-include_once("utils/colors.php");
-include_once("utils/formats.php");
+// Utils.
+include_once("colors.php");
+include_once("formats.php");
 
 // Simple console wrapper.
 class Console
