@@ -22,9 +22,25 @@ class ContactManager extends AbstractEntityManager
         return $contacts;
     }
 
+    // Fetch contact from database by ID.
+    public function getContactById(int $id) : ?Contact {
+
+        // SQL query.
+        $sql = "SELECT * FROM contacts WHERE id = :id";
+        $result = $this->db->query($sql, [
+            "id" => $id
+        ]);
+
+        // Return contact object.
+        if ($contact = $result->fetch()) {
+            return new Contact($contact);
+        }
+        return null;
+    }
+
     // Add new contact.
     public function addContact(Contact $contact) : void {
-        $sql = "INSERT INTO contact (name, email, phone_number) VALUES (:name, :email, :phone_number)";
+        $sql = "INSERT INTO contacts (name, email, phone_number) VALUES (:name, :email, :phone_number)";
         $this->db->query($sql, [
             "name" => $contact->getName(),
             "email" => $contact->getEmail(),
@@ -34,7 +50,7 @@ class ContactManager extends AbstractEntityManager
 
     // Edit existing contact.
     public function editContact(Contact $contact) : void {
-        $sql = "UPDATE contact SET name = :name, email = :email, phone_number = :phone_number WHERE id = :id";
+        $sql = "UPDATE contacts SET name = :name, email = :email, phone_number = :phone_number WHERE id = :id";
         $this->db->query($sql, [
             "id" => $contact->getId(),
             "name" => $contact->getName(),
@@ -45,7 +61,7 @@ class ContactManager extends AbstractEntityManager
 
     // Delete existing contact.
     public function deleteContact(int $id) : void {
-        $sql = "DELETE FROM contact WHERE id = :id";
+        $sql = "DELETE FROM contacts WHERE id = :id";
         $this->db->query($sql, ["id" => $id]);
     }
 }

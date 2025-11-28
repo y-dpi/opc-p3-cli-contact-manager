@@ -1,5 +1,8 @@
 <?php
 
+// Models.
+include_once("./models/Contact.php");
+
 // Utils.
 include_once("./utils/Colors.php");
 include_once("./utils/Console.php");
@@ -11,6 +14,21 @@ class Views
     // Print help message in console.
     public function printHelpMessage(string $message) {
         Console::log(Colors::brightBlack($message));
+    }
+
+    // Print contact in console.
+    public function printContact(Contact $contact) {
+
+        // Print content.
+        Console::log(
+            Colors::yellow($contact->getId()),
+            "-",
+            Formats::bold($contact->getName()),
+            "-",
+            $contact->getEmail(),
+            "-",
+            Colors::green($contact->getPhoneNumber())
+        );
     }
 
     // Print contact list flush in console.

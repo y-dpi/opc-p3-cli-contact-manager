@@ -10,7 +10,7 @@ include_once("utils/Messages.php");
 include_once("controllers/ContactController.php");
 
 // Greet user once before looping.
-Console::log(Messages::greetUser());
+Console::log(Colors::cyan(Messages::greetUser()));
 
 // Main program loop.
 while (true) {
@@ -22,10 +22,36 @@ while (true) {
     try {
         switch ($command) {
 
+            // Display list of commands.
+            case "-h":
+            case "help":
+            case "--help":
+                $contactController = new ContactController();
+                $contactController->help($args);
+                break;
+
             // Display contact list.
             case "list":
                 $contactController = new ContactController();
-                $contactController->listContacts($args);
+                $contactController->list($args);
+                break;
+
+            // Display contact details.
+            case "detail":
+                $contactController = new ContactController();
+                $contactController->detail($args);
+                break;
+
+            // Create new contact.
+            case "create":
+                $contactController = new ContactController();
+                $contactController->create($args);
+                break;
+
+            // Delete existing contact.
+            case "delete":
+                $contactController = new ContactController();
+                $contactController->delete($args);
                 break;
 
             // Unknown command.
