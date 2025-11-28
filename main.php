@@ -1,18 +1,16 @@
 <?php
 
 // Utils.
-include_once("utils/colors.php");
-include_once("utils/console.php");
-include_once("utils/commands.php");
+include_once("utils/Colors.php");
+include_once("utils/Console.php");
+include_once("utils/Commands.php");
+include_once("utils/Messages.php");
 
 // Controllers.
 include_once("controllers/ContactController.php");
 
 // Greet user once before looping.
-Console::log(
-    Colors::cyan("Bienvenue dans votre gestionnaire de contacts en PHP,"),
-    Colors::cyan("entrez la commande 'help' pour voir la liste des commandes disponibles.")
-);
+Console::log(Messages::greetUser());
 
 // Main program loop.
 while (true) {
@@ -32,7 +30,7 @@ while (true) {
 
             // Unknown command.
             default:
-                Console::error("'{$command}' n’est pas reconnu en tant que commande valide.");
+                Console::error(Messages::unknownCommandError($command));
         }
     } catch (Exception $e) {
 
